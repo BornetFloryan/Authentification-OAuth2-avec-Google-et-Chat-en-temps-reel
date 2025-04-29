@@ -22,12 +22,21 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 
 export default {
   name: 'HeaderView',
   computed: {
     ...mapState(['auth']),
+  },
+  created() {
+    this.checkAuth();
+  },
+  methods: {
+    ...mapActions(['checkAuth', 'logout']),
+    handleLogout() {
+      this.logout();
+    },
   },
 };
 </script>

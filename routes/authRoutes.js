@@ -6,7 +6,6 @@ const User = mongoose.model('users');
 module.exports = app => {
     app.post('/auth/local/register', async (req, res) => {
         const { email, password } = req.body;
-        console.log('Données reçues pour l\'inscription :', req.body);
         try {
             const existingUser = await User.findOne({ email });
             if (existingUser) {
@@ -26,9 +25,7 @@ module.exports = app => {
     app.post(
         '/auth/local',
         (req, res, next) => {
-            console.log('Données reçues pour la connexion :', req.body);
             passport.authenticate('local', (err, user, info) => {
-                console.log('Utilisateur trouvé :', user);
                 if (err) {
                     return res.status(500).send({ error: 'Erreur interne du serveur.' });
                 }

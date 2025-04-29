@@ -13,6 +13,8 @@
       <button type="submit" class="btn">Se connecter</button>
     </form>
 
+    <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+
     <div class="oauth-container">
       <h2>Ou connectez-vous avec</h2>
       <a href="/auth/google" class="btn btn-google">Google</a>
@@ -26,7 +28,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'LoginView',
@@ -34,21 +36,22 @@ export default {
     return {
       email: '',
       password: '',
+      errorMessage: '',
     };
   },
   methods: {
+    ...mapActions(['login']),
     async handleLocalLogin() {
+      this.errorMessage = '';
       try {
-        console.log('Email:', this.email, 'Password:', this.password);
-        const response = await axios.post('http://localhost:5000/auth/local', {
-          email: this.email,
-          password: this.password,
-        }, { withCredentials: true });
-        if (response.status === 200) {
-          this.$router.push('/dashboard');
-        }
+        await this.login({ email: this.email, password: this.password });
+        this.$router.push('/dashboard');
       } catch (error) {
-        alert('Échec de la connexion. Vérifiez vos informations.');
+        if (error.response && error.response.data && error.response.data.error) {
+          this.errorMessage = error.response.data.error;
+        } else {
+          this.errorMessage = 'Une erreur est survenue. Veuillez réessayer.';
+        }
         console.error(error);
       }
     },
@@ -59,6 +62,7 @@ export default {
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
+/* Styles inchangés */
 .login-container {
   max-width: 400px;
   margin: 0 auto;
@@ -165,5 +169,11 @@ input:focus {
   margin-bottom: 15px;
   font-size: 1.2rem;
   color: #555;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+  font-size: 0.9rem;
 }
 </style>

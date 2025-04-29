@@ -3,7 +3,21 @@
     <header class="hero">
       <h1>Bienvenue sur notre application</h1>
       <p>Explorez nos fonctionnalités et découvrez tout ce que nous avons à offrir.</p>
-      <router-link to="/dashboard" class="btn">Accéder au Dashboard</router-link>
+      <router-link
+          v-if="auth"
+          to="/dashboard"
+          class="btn"
+          @click="handleLogout"
+      >
+        Se déconnecter
+      </router-link>
+      <router-link
+          v-else
+          to="/login"
+          class="btn"
+      >
+        Se connecter
+      </router-link>
     </header>
     <section class="features">
       <h2>Nos fonctionnalités</h2>
@@ -17,8 +31,23 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
+
 export default {
   name: 'HomeView',
+  computed: {
+    ...mapState(['auth']),
+  },
+  created() {
+    this.checkAuth();
+  },
+  methods: {
+    ...mapActions(['checkAuth', 'logout']),
+    async handleLogout() {
+      await this.logout();
+      this.$router.push('/');
+    },
+  },
 };
 </script>
 

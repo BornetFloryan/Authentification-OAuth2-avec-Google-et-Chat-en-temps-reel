@@ -25,7 +25,13 @@ passport.use(
             try {
                 const user = await User.findOne({ email });
                 if (!user) {
-                    return done(null, false, { message: 'Utilisateur non trouvé.' });
+                    return done(null, false, { message: 'Adresse email non trouvée.' });
+                }
+
+                if (!user.password) {
+                    return done(null, false, {
+                        message: 'Cet utilisateur a été créé via OAuth2 (Google ou GitHub). Veuillez utiliser l\'authentification correspondante pour vous connecter.'
+                    });
                 }
 
                 const isMatch = await bcrypt.compare(password, user.password);
