@@ -59,11 +59,23 @@ git clone https://github.com/BornetFloryan/Authentification-OAuth2-avec-Google-e
 cd Authentification-OAuth2-et-Chat
 ```
 
+### Créez un fichier `.env` dans le dossier `backend` :
+# Fichier .env - Variables d'environnement du backend
+
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+
+GITHUB_CLIENT_ID=your_github_client_id
+GITHUB_CLIENT_SECRET=your_github_client_secret
+
+MONGO_URI=mongodb://localhost:27017/your_database_name
+
+COOKIE_KEY=your_cookie_key
+
 #### Configurer le backend :
 ```bash
 cd backend
 npm install
-# Remplir les informations de connexion Google OAuth2 dans config/dev.js
 npm start
 ```
 
