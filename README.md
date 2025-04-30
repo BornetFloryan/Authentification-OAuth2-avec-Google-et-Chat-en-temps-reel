@@ -63,7 +63,7 @@ cd Authentification-OAuth2-et-Chat
 ```bash
 cd backend
 npm install
-# Remplir les informations de connexion Google OAuth2 dans config/passport.js
+# Remplir les informations de connexion Google OAuth2 dans config/dev.js
 npm start
 ```
 
