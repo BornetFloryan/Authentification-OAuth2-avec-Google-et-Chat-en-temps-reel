@@ -1,18 +1,80 @@
-# S5 BUT NORD FRANCHE COMTE
 
+# Mini-projet 3 : Authentification OAuth2 avec Google et Chat en temps réel
 
-Projet de départ pour le cours Nouvelles bases de données: NodeJS + NoSQL
+## Auteurs
+- Floryan BORNET
+- Corentin BRENDLE
 
+## Description du projet
+Ce projet est le troisième des trois mini-projets visant à explorer différentes stratégies d'authentification et de gestion des sessions.  
+Il implémente une authentification OAuth2 via Google et GitHub ainsi qu'un système de chat en temps réel entre utilisateurs connectés.
 
-### Setup
-- Utilisez NodeJS version 16+
-- Lancez `npm install` à la racine du projet pour installer les dépendances du serveur.
-- Allez dans le répertoire client et exécutez `npm install --legacy-peer-deps --force`
-- Retournez à la racine du projet et lancez `npm run dev` pour démarrer le serveur.
-- Accédez à l'application à l'adresse `localhost:3000` dans votre navigateur.
-- Front-end: `localhost:3000`
-- Back-end: `localhost:5000`
+## Fonctionnalités principales
+- Authentification OAuth2 via Google et GitHub.
+- Interface de messagerie en temps réel entre utilisateurs connectés.
+- Stockage de l'historique des messages dans MongoDB.
+- Mise en cache des sessions avec Redis.
 
-**Important:**
-Les identifiants pour la base de données Mongo Atlas dans dev.js sont en lecture seule. Si vous essayez de vous connecter sans d'abord ajouter votre propre chaîne de connexion, vous verrez une erreur : `[0] MongoError: user is not allowed to do action [insert] on [advnode.users]`
-Vous pouvez également utiliser votre propre base de données MongoDB locale ou une base de données MongoDB Dockerisée.
+## Organisation du projet
+Le projet est organisé en deux parties :
+
+- **Backend** : API REST avec gestion de l'authentification, des sessions, du chat en temps réel, etc.
+- **Frontend** : Interface utilisateur développée avec Vue.js.
+
+## Structure des dossiers
+```
+Authentification-OAuth2-et-Chat/
+├── backend/
+│   ├── config/       # Configuration de Passport.js, MongoDB et Redis
+│   ├── controllers/  # Logique métier (authentification, chat, etc.)
+│   ├── models/       # Schémas Mongoose pour utilisateurs et messages
+│   ├── routes/       # Routes API
+│   ├── socket/       # Gestion de Socket.IO
+│   ├── app.js        # Point d'entrée du serveur
+│   └── package.json  # Dépendances backend
+├── frontend/
+│   ├── src/
+│   │   ├── components/  # Composants Vue.js (chat, login, etc.)
+│   │   ├── views/       # Pages Vue.js
+│   │   ├── router/      # Configuration des routes
+│   │   ├── store/       # Gestion de l'état global
+│   │   └── main.js      # Point d'entrée du frontend
+│   └── package.json     # Dépendances frontend
+└── README.md
+```
+
+## Instructions pour exécuter le projet
+
+### Prérequis
+- Node.js (v14 ou supérieur)
+- npm ou yarn
+- MongoDB
+- Redis
+
+### Étapes
+
+#### Cloner le dépôt GitHub :
+```bash
+git clone https://github.com/BornetFloryan/Authentification-OAuth2-avec-Google-et-Chat-en-temps-reel
+cd Authentification-OAuth2-et-Chat
+```
+
+#### Configurer le backend :
+```bash
+cd backend
+npm install
+# Remplir les informations de connexion Google OAuth2 dans config/passport.js
+npm start
+```
+
+#### Configurer le frontend :
+```bash
+cd ../frontend
+npm install
+npm run serve
+```
+
+### Accéder à l'application :
+Ouvrir votre navigateur à l'adresse suivante : [http://localhost:8080](http://localhost:8080)
+
+---

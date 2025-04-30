@@ -19,14 +19,6 @@
         Se connecter
       </router-link>
     </header>
-    <section class="features">
-      <h2>Nos fonctionnalités</h2>
-      <ul>
-        <li>Authentification sécurisée</li>
-        <li>Gestion des utilisateurs</li>
-        <li>Tableau de bord interactif</li>
-      </ul>
-    </section>
   </div>
 </template>
 
@@ -52,43 +44,58 @@ export default {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
 .home {
   text-align: center;
   padding: 20px;
+  font-family: 'Poppins', sans-serif;
+  color: #333;
 }
 
 .hero {
-  background-color: #f5f5f5;
-  padding: 50px 20px;
+  background: linear-gradient(135deg, #42b983, #369f6b);
+  color: white;
+  padding: 60px 20px;
   margin-bottom: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .hero h1 {
-  font-size: 2.5rem;
-  margin-bottom: 10px;
+  font-size: 3rem;
+  font-weight: 600;
+  margin-bottom: 15px;
 }
 
 .hero p {
   font-size: 1.2rem;
-  margin-bottom: 20px;
+  font-weight: 300;
+  margin-bottom: 25px;
 }
 
 .hero .btn {
   display: inline-block;
-  padding: 10px 20px;
-  background-color: #42b983;
-  color: white;
+  padding: 12px 25px;
+  background-color: white;
+  color: #42b983;
   text-decoration: none;
-  border-radius: 5px;
+  border-radius: 25px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .hero .btn:hover {
-  background-color: #369f6b;
+  background-color: #f5f5f5;
+  color: #369f6b;
+  transform: translateY(-2px);
 }
 
 .features h2 {
-  font-size: 1.8rem;
-  margin-bottom: 15px;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 20px;
 }
 
 .features ul {

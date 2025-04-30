@@ -5,6 +5,8 @@ const cors = require('cors');
 const session = require('express-session');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsDoc = require('swagger-jsdoc');
+const http = require('http');
+const chat = require('./chat');
 const dev = require('./config/dev');
 require('./models/User');
 require('./services/passport');
@@ -19,7 +21,7 @@ app.use(
         resave: false,
         saveUninitialized: false,
         cookie: {
-            maxAge: 30 * 24 * 60 * 60 * 1000,
+            maxAge: 30 * 24 * 60 * 60 * 1000, // 30 jours
         },
     })
 );
@@ -27,7 +29,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(cors({ origin: ['http://localhost:8080', 'http://localhost:3000'], credentials: true }));
+app.use(cors({ origin: ['http://localhost:8080', 'http://localhost:8082', 'http://localhost:3000'], credentials: true }));
 
 const swaggerOptions = {
     swaggerDefinition: {
@@ -50,6 +52,7 @@ const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 require('./routes/authRoutes')(app);
+require('./routes/messageRoutes')(app);
 
 app.get('/', (req, res) => {
     res.send('Salut!');
@@ -57,11 +60,15 @@ app.get('/', (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 
+const server = http.createServer(app);
+
+chat(server);
+
 mongoose
     .connect(dev.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         console.log('Connexion à MongoDB réussie !');
-        app.listen(PORT, () => {
+        server.listen(PORT, () => { // Utilisation du serveur HTTP
             console.log(`Le serveur écoute sur le port: ${PORT}`);
         });
     })

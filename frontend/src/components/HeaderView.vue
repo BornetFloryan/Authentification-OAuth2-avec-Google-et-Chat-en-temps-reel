@@ -13,7 +13,6 @@
           <router-link to="/login" class="btn-login">Se connecter</router-link>
         </li>
         <li v-else>
-          <router-link to="/dashboard" class="btn-link">Mon tableau de bord</router-link>
           <a href="/auth/logout" class="btn-logout">Déconnexion</a>
         </li>
       </ul>

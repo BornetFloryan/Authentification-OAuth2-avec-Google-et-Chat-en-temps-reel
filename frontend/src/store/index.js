@@ -30,7 +30,8 @@ export default new Vuex.Store({
             { email, password },
             { withCredentials: true }
         );
-        commit('setAuth', response.data || false);
+        console.log('Réponse de connexion :', response.data);
+        commit('setAuth', response.data.data || false);
       } catch (error) {
         console.error('Erreur lors de la connexion :', error);
         throw error;

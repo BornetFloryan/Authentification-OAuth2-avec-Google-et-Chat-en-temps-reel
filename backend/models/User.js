@@ -7,6 +7,7 @@ const userSchema = new Schema({
     password: String,
     name: String,
     email: { type: String, unique: true, sparse: true },
+    tokens: [String],
 });
 
 mongoose.model('users', userSchema);
